@@ -1,42 +1,45 @@
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class PrzeszukiwanieZNawracaniem {
-
-//	Tree<Point> tree;
 	
 	public PrzeszukiwanieZNawracaniem(){
-	//	this.tree = new Tree<Point>(null);
-		
-	}
-	
-	public void doIt() {
-		addNewOption(0);
 
-//		while(tree.getParent() != null){
-//		//	System.out.println(tree.getData().x + "  " + tree.getData().y);
-//			tree.goBack();
-//		}
 	}
 	
-	public void addNewOption(int j){
-		
-	/*	for(int i=0; i<Properties.N; i++){
-		//	if(this.tree.head.children.size()==0){
-		//		this.tree.addAndGo(new Point(i,j));
-		//	}
-		//	else if (Helper.check(new Point(i, j), this.tree.root)) {
-		//		this.tree.addAndGo(new Point(i,j));
-				if(i == Properties.N-1 || j == Properties.N-1 || END == true){
-					END = true;
-		//			return;
+	public List<Point> doIt() {
+
+		return search(new ArrayList<Point>(), 0);
+	}
+
+	private ArrayList<Point> search(ArrayList<Point> arrayList, int j) {
+		boolean flag = true;
+		for(int i=0; i<Properties.N; i++){
+			
+			for(int k=0; k<arrayList.size(); k++){
+				if(Helper.checkIfContain(new Point(i, j), arrayList.get(k))){
+					flag = false;
+				}	
+			}
+			if(flag==true){
+				arrayList.add(new Point(i, j));
+				if(arrayList.size() == Properties.N){
+					System.out.println("Solution found " + arrayList.size());
+					return arrayList;
+				}
+				else{
+					System.out.println("Point("+i + ", " +j+") added");
+					arrayList = search(arrayList, j+1);
+					if(arrayList.size() == Properties.N){
+						return arrayList;
+					}
+					arrayList.remove(arrayList.size()-1);
 				}
 			}
-			addNewOption(j+1);
-			if(i == Properties.N-1 || j == Properties.N-1 || END == true){
-				END = true;
-				return;
-			}
-		}*/
+			flag = true;
+		}
+		return arrayList;
 	}
-
 }
