@@ -1,35 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class Helper {
 	
-	public static boolean check(Point p1, Point p2){
+	public static boolean checkIfContain(Point p1, Point p2){
 		if(p1.x==p2.x || p1.y==p2.y || Math.abs(p1.y-p2.y)==Math.abs(p1.x-p2.x))
-			return false;
-	return true;
+			return true;
+	return false;
 	}
-/*
-	public static boolean check(Point p1, final Tree<Point> tree) {
-		Tree<Point> tmp = tree;
-		boolean flag = true;
-		Point p2;
-		while(tmp.root.parent != null){
-			p2 = tmp.root.data;
-			if(Helper.check(p1, p2)){
-				flag = false;
+	
+	public static Object[] createTab(int iter){
+		List<Object> tmp = new ArrayList<Object>();
+		for(int i=0; i<Properties.N; i++){
+			if(i==iter){
+				tmp.add("X");
 			}
-			tree.roo
+			else{
+				tmp.add("");
+			}
 		}
-		return flag;
-	}*/
-	/*
-	public static boolean check(Point p1, Node<Point> root) {
-		boolean flag=true;
-		if(root.parent != null){
-			flag = check(p1,root.parent.data);
-			flag &= check(p1, root.parent);
-		}
-		return flag;
-	}*/
+		return tmp.toArray();
+	}
 }
 
 
