@@ -26,11 +26,11 @@ public class PrzeszukiwanieZNawracaniem {
 			if(flag==true){
 				arrayList.add(new Point(i, j));
 				if(arrayList.size() == Properties.N){
-					System.out.println("Solution found " + arrayList.size());
+				//	System.out.println("Solution found " + arrayList.size());
 					return arrayList;
 				}
 				else{
-					System.out.println("Point("+i + ", " +j+") added");
+			//		System.out.println("Point("+i + ", " +j+") added");
 					arrayList = search(arrayList, j+1);
 					if(arrayList.size() == Properties.N){
 						return arrayList;

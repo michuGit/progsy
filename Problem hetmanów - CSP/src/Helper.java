@@ -23,6 +23,18 @@ public class Helper {
 		}
 		return tmp.toArray();
 	}
+
+	public static List<List<Point>> copy(List<List<Point>> l) {
+		List<List<Point>> tmp = new ArrayList<List<Point>>();
+		for(int i=0;i<l.size();i++){
+			List<Point> lst = new ArrayList<Point>();
+			for(int j=0;j<l.get(i).size();j++){
+				lst.add(l.get(i).get(j));
+			}
+			tmp.add(lst);
+		}
+		return tmp;
+	}
 }
 
 
