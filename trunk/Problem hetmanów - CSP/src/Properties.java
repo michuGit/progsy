@@ -1,4 +1,4 @@
 
 public class Properties {
-	public static final int N = 8;
+	public static final int N = 20;
 }

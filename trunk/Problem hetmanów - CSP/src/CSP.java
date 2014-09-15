@@ -1,8 +1,5 @@
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 
 public class CSP implements Runnable{
@@ -24,11 +21,15 @@ public class CSP implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		long startTime = System.currentTimeMillis();
 		
-		this.list = przeszukiwanieWprzod.doIt();
-//		this.list = przeszukiwanieZNawracaniem.doIt();
-		System.out.println(list.size());
+		
+	//	this.list = przeszukiwanieWprzod.doIt();
+		this.list = przeszukiwanieZNawracaniem.doIt();
+		
+		long estimatedTime = System.currentTimeMillis() - startTime;
+		
+		System.out.println(estimatedTime+" ms");
 		this.frame.draw(this.list);
-	//	this.frame.setPanel(null);
 	}
 }
