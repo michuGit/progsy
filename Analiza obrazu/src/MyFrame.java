@@ -30,6 +30,7 @@ public class MyFrame extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-		this.algorithm.run();
+		
+		this.img.setListe(this.algorithm.findCouples());
 	}
 }
