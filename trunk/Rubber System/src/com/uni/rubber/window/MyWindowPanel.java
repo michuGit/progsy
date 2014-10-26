@@ -3,14 +3,14 @@ package com.uni.rubber.window;
 import javax.swing.JPanel;
 
 public class MyWindowPanel extends JPanel {
-MyInternalFrame nn ;
+MyInternalFrame internalFrame ;
 	/**
 	 * Create the panel.
 	 */
 	public MyWindowPanel() {
 		super();
-		nn=new MyInternalFrame();
-		add(nn);
+		internalFrame=new MyInternalFrame();
+		add(internalFrame);
 	}
 
 }

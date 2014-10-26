@@ -9,8 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 public class MyMainWindow extends JFrame {
 
-	private JPanel contentPane;
-
+	private MyWindowPanel contentPane;
 	public MyMainWindow() {
 		super(WindowLabels.Name);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
