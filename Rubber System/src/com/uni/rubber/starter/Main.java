@@ -1,10 +1,13 @@
 package com.uni.rubber.starter;
 
+import com.uni.rubber.window.*;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.out.println("Ruber System started...");
+		MyMainWindow mainWindow = new MyMainWindow();
+
 	}
 
 }
