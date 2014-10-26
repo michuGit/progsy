@@ -1,6 +1,6 @@
 package com.uni.rubber.warehouse;
 
-public class Order extends Goods{
+public class Taken extends Goods{
 
 	@Override
 	public void setData() {
