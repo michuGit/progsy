@@ -7,5 +7,6 @@ public class Configuration {
 	public static final Color ButtonNormalColor = Color.WHITE;
 	public static final Color ButtonRolledOverColor = Color.GRAY;
 	public static final Color ButtonPressedColor = Color.BLUE;
+	public static final Color BackgroundColor = Color.WHITE;
 	public static final String FontName = "Time New Roman";
 }

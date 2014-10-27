@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -17,13 +17,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MyMainWindow extends JFrame {
 
 	private MyWindowPanel contentPane;
-
 	public MyMainWindow() {
 		super(WindowLabels.Name);
-		contentPane=new MyWindowPanel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		contentPane = new MyWindowPanel();
 		setContentPane(contentPane);
 		JMenuBar menuBar = new JMenuBar();
-setLayout(null);
+		setLayout(null);
 		// Add the menubar to the frame
 		setJMenuBar(menuBar);
 
@@ -34,14 +34,13 @@ setLayout(null);
 		JMenu magazyn = new JMenu("Magazyn");
 		JMenu uzytkowicy = new JMenu("U¿ytkowicy");
 		JMenu ustawienia = new JMenu("Ustawienia");
-		
+
 		menuBar.add(mieszanki);
 		menuBar.add(granulaty);
 		menuBar.add(raporty);
 		menuBar.add(magazyn);
 		menuBar.add(uzytkowicy);
 		menuBar.add(ustawienia);
-
 
 		JMenuItem nowaMieszanka = new JMenuItem("Dodaj now¹ mieszankê");
 		JMenuItem raportMieszanki = new JMenuItem("Raport mieszanki");
@@ -51,7 +50,8 @@ setLayout(null);
 		nowaMieszanka.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Dodawanie nowej mieszanki...");
-				MyInternalFrame internalFrame=new MyInternalFrame("Dodawanie mieszanki");
+				MyInternalFrame internalFrame = new MyInternalFrame(
+						"Dodawanie mieszanki");
 				contentPane.add(internalFrame);
 			}
 		});
