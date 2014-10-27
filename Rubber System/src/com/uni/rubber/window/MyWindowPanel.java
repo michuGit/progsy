@@ -1,20 +1,14 @@
 package com.uni.rubber.window;
 
-import java.awt.FlowLayout;
+import java.awt.Color;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JDesktopPane;
+import javax.swing.UIManager;
 
-public class MyWindowPanel extends JPanel {
-//MyInternalFrame internalFrame ;
-	/**
-	 * Create the panel.
-	 */
+public class MyWindowPanel extends JDesktopPane {
 	public MyWindowPanel() {
 		super();
-//		internalFrame=new MyInternalFrame();
-//		setLayout(new FlowLayout());
-//		add(internalFrame);
+		setBackground(Configuration.BackgroundColor);
 	}
 
 }
