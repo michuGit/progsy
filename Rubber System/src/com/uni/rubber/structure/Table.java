@@ -8,4 +8,12 @@ public class Table extends JTable {
 		setEnabled(false);
 	}
 
+	public void changeTableValue(String[][] dataValues) {
+
+	}
+
+	public void changeTableValue(String[] dataValues) {
+
+	}
+
 }
