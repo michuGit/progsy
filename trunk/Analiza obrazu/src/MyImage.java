@@ -22,9 +22,9 @@ public class MyImage extends JPanel {
 		File f1 = new File(Properties.file1);
 		File f2 = new File(Properties.file1);
 		if (f1.exists() && f2.exists()) {
-			image1 = Toolkit.getDefaultToolkit().getImage(Properties.file1);
+			image1 = Toolkit.getDefaultToolkit().getImage(Properties.img1);
 			System.out.println("Image 1 loaded");
-			image2 = Toolkit.getDefaultToolkit().getImage(Properties.file2);
+			image2 = Toolkit.getDefaultToolkit().getImage(Properties.img2);
 			System.out.println("Image 2 loaded");
 		}
 	}
@@ -35,8 +35,8 @@ public class MyImage extends JPanel {
 		BufferedImage bimg1 = null;
 		BufferedImage bimg2 = null;
 		try {
-			bimg1 = ImageIO.read(new File(Properties.file1));
-			bimg2 = ImageIO.read(new File(Properties.file2));
+			bimg1 = ImageIO.read(new File(Properties.img1));
+			bimg2 = ImageIO.read(new File(Properties.img2));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class MyImage extends JPanel {
 				g.drawLine(line.x1, line.y1, line.x2 + width, line.y2);
 			}
 		}
-		this.lines = new ArrayList<Line>();
+	
 	}
 
 	/*
@@ -67,7 +67,7 @@ public class MyImage extends JPanel {
 		this.lines = list;
 		this.repaint();
 	}
-	
+
 	public void addLinie(Line list) {
 		this.lines.add(list);
 		this.repaint();
