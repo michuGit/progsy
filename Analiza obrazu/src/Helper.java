@@ -59,11 +59,11 @@ public class Helper {
 			List<ArrayList<Double>> list2) {
 		boolean flag = false;
 		double min = Double.MAX_VALUE;
-		int iter1=-1;
-		int iter2=-1;
+		int iter1 = -1;
+		int iter2 = -1;
 		double tmp = 0;
 		double x = 0;
-		
+
 		for (int i = 0; i < list2.size(); i++) {
 			tmp = 0;
 			for (int j = 5; j < list2.get(i).size(); j++) {
@@ -73,27 +73,39 @@ public class Helper {
 			tmp = Math.sqrt(tmp);
 			if (tmp < min) {
 				min = tmp;
-				iter1=i;
+				iter1 = i;
 			}
 		}
-min=Double.MAX_VALUE;
+		
+		min = Double.MAX_VALUE;
+		
 		for (int i = 0; i < list1.size(); i++) {
 			tmp = 0;
 			for (int j = 5; j < list1.get(i).size(); j++) {
-				x = list1.get(i).get(j) - list1.get(iter1).get(j);
+				x = list1.get(i).get(j) - list2.get(iter1).get(j);
 				tmp += x * x;
 			}
 			tmp = Math.sqrt(tmp);
 			if (tmp < min) {
 				min = tmp;
-				iter2=i;
+				iter2 = i;
 			}
 		}
-	//	System.out.println(var+"  "+iter1+"  "+iter2);
-		if(var==iter2){
+		// System.out.println(var+"  "+iter1+"  "+iter2);
+		if (var == iter2) {
 			return iter1;
 		}
-		
+
 		return null;
+	}
+	
+	
+	public static double liczOdleglosc(ArrayList<Double>list1,ArrayList<Double>list2){
+		double x=0;
+		for(int i=5;i<list1.size();i++){
+			x+=Math.pow(list1.get(i)-list1.get(i),2);
+		}
+		x=Math.sqrt(x);
+		return x;
 	}
 }

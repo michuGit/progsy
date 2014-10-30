@@ -14,7 +14,7 @@ public class MyFrame extends JFrame implements Runnable {
 
 		this.img = new MyImage();
 		this.setContentPane(img);
-		BufferedImage bimg = ImageIO.read(new File(Properties.file1));
+		BufferedImage bimg = ImageIO.read(new File(Properties.img1));
 		int width = bimg.getWidth();
 		int height = bimg.getHeight();
 
@@ -23,7 +23,7 @@ public class MyFrame extends JFrame implements Runnable {
 		this.setTitle("Analiza obrazów");
 		this.setLocation(400, 200);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(false);
+		//this.setResizable(false);
 
 		this.algorithm = new Algorithm();
 	}
@@ -32,5 +32,6 @@ public class MyFrame extends JFrame implements Runnable {
 	public void run() {
 		
 		this.img.setListe(this.algorithm.findCouples());
+		this.img.setListe(this.algorithm.analizaSpojnosci());
 	}
 }

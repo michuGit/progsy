@@ -4,7 +4,7 @@ import java.awt.Color;
 
 
 public class Line{
-    final int x1; 
+    final int x1;  
     final int y1;
     final int x2;
     final int y2;   
@@ -16,5 +16,7 @@ public class Line{
         this.x2 = x2;
         this.y2 = y2;
         this.color = color;
-    }               
+    }
+
+            
 }
