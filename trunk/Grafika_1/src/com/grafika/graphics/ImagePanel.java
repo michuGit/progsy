@@ -39,6 +39,7 @@ public class ImagePanel extends JPanel implements MouseListener,
 
 	int X;
 	int Y;
+	double ratio = 0;
 
 	public ImagePanel(Component parent) {
 		this.parent = parent;
@@ -49,9 +50,15 @@ public class ImagePanel extends JPanel implements MouseListener,
 		addMouseMotionListener(this);
 	}
 
+	public double ratio(int w, int h) {
+		return (double) h / (double) w;
+	}
+
 	public void changeImage(String pathToFile) {
 		try {
 			this.bufferedImage = ImageIO.read(new File(pathToFile));
+			this.ratio = ratio(this.bufferedImage.getWidth(),
+					this.bufferedImage.getHeight());
 			this.bufferedImage = fitImage();
 		} catch (IOException ex) {
 		}
@@ -60,11 +67,20 @@ public class ImagePanel extends JPanel implements MouseListener,
 	}
 
 	private BufferedImage fitImage() {
-		int scaleX = this.parent.getWidth();
-		int scaleY = this.parent.getHeight();
-		Image image = this.bufferedImage.getScaledInstance(scaleX, scaleY,
+		double screenRatio = ratio(this.parent.getWidth(),
+				this.parent.getHeight());
+		int W = this.parent.getWidth();
+		int H = this.parent.getHeight();
+		if (screenRatio > this.ratio) {
+			H = (int) (this.ratio * W);
+			H = (int) (this.ratio * W);
+		} else {
+			W = (int) (H / this.ratio);
+			W = (int) (H / this.ratio);
+		}
+		Image image = this.bufferedImage.getScaledInstance(W, H,
 				Image.SCALE_SMOOTH);
-		BufferedImage buffered = new BufferedImage(scaleX, scaleY,
+		BufferedImage buffered = new BufferedImage(W, H,
 				bufferedImage.getType());
 		buffered.getGraphics().drawImage(image, 0, 0, null);
 		this.graphics = buffered.getGraphics();
@@ -117,10 +133,12 @@ public class ImagePanel extends JPanel implements MouseListener,
 			this.ellipse.add(new Ellipse2D.Double(x, y, 0, 0));
 			this.X = x;
 			this.Y = y;
-		}else if (GroupRadioButtonPanel.prostokat.isSelected()) {
+		} else if (GroupRadioButtonPanel.prostokat.isSelected()) {
 			this.rectangle.add(new Rectangle2D.Double(x, y, 0, 0));
 			this.X = x;
 			this.Y = y;
+		} else if (GroupRadioButtonPanel.wielokat.isSelected()) {
+
 		}
 		repaint();
 	}
