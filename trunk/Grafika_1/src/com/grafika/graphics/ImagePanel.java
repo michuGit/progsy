@@ -5,10 +5,12 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,16 +37,19 @@ public class ImagePanel extends JPanel implements MouseListener,
 	private BufferedImage bufferedImage;
 	private List<Ellipse2D> ellipse;
 	private List<Rectangle2D> rectangle;
+	private List<Polygon> polygon;
 	Graphics graphics;
 
 	int X;
 	int Y;
+	public static boolean draw = false;
 	double ratio = 0;
 
 	public ImagePanel(Component parent) {
 		this.parent = parent;
 		this.ellipse = new ArrayList<Ellipse2D>();
 		this.rectangle = new ArrayList<Rectangle2D>();
+		this.polygon = new ArrayList<Polygon>();
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -73,9 +78,7 @@ public class ImagePanel extends JPanel implements MouseListener,
 		int H = this.parent.getHeight();
 		if (screenRatio > this.ratio) {
 			H = (int) (this.ratio * W);
-			H = (int) (this.ratio * W);
 		} else {
-			W = (int) (H / this.ratio);
 			W = (int) (H / this.ratio);
 		}
 		Image image = this.bufferedImage.getScaledInstance(W, H,
@@ -101,6 +104,11 @@ public class ImagePanel extends JPanel implements MouseListener,
 				g2.draw(e);
 			}
 			for (Rectangle2D e : this.rectangle) {
+				Graphics2D g2 = (Graphics2D) g;
+				g2.setColor(Color.BLUE);
+				g2.draw(e);
+			}
+			for (Polygon e : this.polygon) {
 				Graphics2D g2 = (Graphics2D) g;
 				g2.setColor(Color.BLUE);
 				g2.draw(e);
@@ -138,7 +146,14 @@ public class ImagePanel extends JPanel implements MouseListener,
 			this.X = x;
 			this.Y = y;
 		} else if (GroupRadioButtonPanel.wielokat.isSelected()) {
-
+			if (this.draw == false) {
+				this.polygon.add(new Polygon());
+				this.draw = true;
+				GroupRadioButtonPanel.drawButton.setVisible(true);
+			}
+			this.polygon.get(this.polygon.size() - 1).addPoint(x, y);
+			this.X = x;
+			this.Y = y;
 		}
 		repaint();
 	}
@@ -157,9 +172,10 @@ public class ImagePanel extends JPanel implements MouseListener,
 			paintEllipse(e);
 		} else if (GroupRadioButtonPanel.prostokat.isSelected()) {
 			paintRectangle(e);
-		} else if (GroupRadioButtonPanel.wielokat.isSelected()) {
-			paintMultiRectangle(e);
 		}
+		// else if (GroupRadioButtonPanel.wielokat.isSelected()) {
+		// paintMultiRectangle(e);
+		// }
 		repaint();
 	}
 
@@ -184,11 +200,11 @@ public class ImagePanel extends JPanel implements MouseListener,
 	}
 
 	private void paintMultiRectangle(MouseEvent e) {
-		if (this.ellipse.get(this.ellipse.size() - 1) != null) {
-			this.ellipse.get(this.ellipse.size() - 1).setFrame(
-					(e.getX() < this.X) ? e.getX() : this.X,
-					(e.getY() < this.Y) ? e.getY() : this.Y,
-					Math.abs(this.X - e.getX()), Math.abs(this.Y - e.getY()));
+		if (this.polygon.get(this.polygon.size() - 1) != null) {
+			// this.ellipse.get(this.ellipse.size() - 1).setFrame(
+			// (e.getX() < this.X) ? e.getX() : this.X,
+			// (e.getY() < this.Y) ? e.getY() : this.Y,
+			// Math.abs(this.X - e.getX()), Math.abs(this.Y - e.getY()));
 		}
 	}
 
