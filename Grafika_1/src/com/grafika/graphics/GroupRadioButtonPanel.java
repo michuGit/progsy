@@ -1,6 +1,8 @@
 package com.grafika.graphics;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -8,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class GroupRadioButtonPanel extends JPanel {
+public class GroupRadioButtonPanel extends JPanel  implements ActionListener{
 	/**
 	 * 
 	 */
@@ -16,7 +18,7 @@ public class GroupRadioButtonPanel extends JPanel {
 	public static JRadioButton elipsa;
 	public static JRadioButton prostokat;
 	public static JRadioButton wielokat;
-	public JButton kolor;
+	public static JButton drawButton;
 	public static Color color;
 
 	public GroupRadioButtonPanel() {
@@ -26,8 +28,10 @@ public class GroupRadioButtonPanel extends JPanel {
 		elipsa = new JRadioButton("Elipsa");
 		prostokat = new JRadioButton("Prostokąt");
 		wielokat = new JRadioButton("Wielokąt");
-		this.kolor = new Button("Kolor", false);
-
+		drawButton = new Button("Skończ rysować", false);
+		drawButton.setVisible(false);
+		drawButton.addActionListener(this);
+		
 		ButtonGroup group = new ButtonGroup();
 		group.add(elipsa);
 		group.add(prostokat);
@@ -36,8 +40,16 @@ public class GroupRadioButtonPanel extends JPanel {
 		add(elipsa);
 		add(prostokat);
 		add(wielokat);
-		add(kolor);
+		add(drawButton);
 
 		this.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == drawButton) {
+			drawButton.setVisible(false);
+			ImagePanel.draw=false;
+		}	
 	}
 }
