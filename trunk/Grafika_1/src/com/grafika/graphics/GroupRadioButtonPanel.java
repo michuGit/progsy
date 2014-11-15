@@ -10,15 +10,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class GroupRadioButtonPanel extends JPanel  implements ActionListener{
-	/**
-	 * 
-	 */
+import org.apache.log4j.Logger;
+
+import com.grafika.starter.Main;
+
+public class GroupRadioButtonPanel extends JPanel implements ActionListener {
+	static Logger log = Logger.getLogger(Main.class.getName());
+
 	private static final long serialVersionUID = 1L;
 	public static JRadioButton elipsa;
 	public static JRadioButton prostokat;
 	public static JRadioButton wielokat;
-	public static JButton drawButton;
+	public static JButton addButton;
+	public static JButton cancelButton;
 	public static Color color;
 
 	public GroupRadioButtonPanel() {
@@ -28,10 +32,13 @@ public class GroupRadioButtonPanel extends JPanel  implements ActionListener{
 		elipsa = new JRadioButton("Elipsa");
 		prostokat = new JRadioButton("Prostokąt");
 		wielokat = new JRadioButton("Wielokąt");
-		drawButton = new Button("Skończ rysować", false);
-		drawButton.setVisible(false);
-		drawButton.addActionListener(this);
-		
+		addButton = new Button("Dodaj", false);
+		// addButton.setVisible(false);
+		addButton.addActionListener(this);
+		cancelButton = new Button("Anuluj", false);
+		// cancelButton.setVisible(false);
+		cancelButton.addActionListener(this);
+
 		ButtonGroup group = new ButtonGroup();
 		group.add(elipsa);
 		group.add(prostokat);
@@ -40,16 +47,27 @@ public class GroupRadioButtonPanel extends JPanel  implements ActionListener{
 		add(elipsa);
 		add(prostokat);
 		add(wielokat);
-		add(drawButton);
+		add(addButton);
+		add(cancelButton);
 
 		this.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == drawButton) {
-			drawButton.setVisible(false);
-			ImagePanel.draw=false;
-		}	
+		if (e.getSource() == addButton) {
+			// addButton.setVisible(false);
+			if (ImagePanel.save()) {
+				ImagePanel.saveData();
+				ImagePanel.loadData();
+
+				log.info("Dodano...");
+			}
+		} else if (e.getSource() == cancelButton) {
+			// addButton.setVisible(false);
+			// ImagePanel.clean();
+		}
+		ImagePanel.clean();
+		ImagePanel.draw = false;
 	}
 }

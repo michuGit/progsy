@@ -13,7 +13,7 @@ public class ToolsPanel extends JPanel {
 
 	GroupRadioButtonPanel radioButtonPanel;
 	JScrollPane mJScrollPane;
-
+	public static Table table=null;
 	public ToolsPanel(Component parent) {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -22,7 +22,8 @@ public class ToolsPanel extends JPanel {
 
 		this.radioButtonPanel = new GroupRadioButtonPanel();
 		add(this.radioButtonPanel);
-		this.mJScrollPane=new JScrollPane(new Table());
+//		table=new Table();
+		this.mJScrollPane=new JScrollPane(table);
 		add(this.mJScrollPane);
 	}
 }
