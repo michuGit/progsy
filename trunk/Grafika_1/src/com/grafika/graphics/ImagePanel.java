@@ -258,6 +258,7 @@ public class ImagePanel extends JPanel implements MouseListener,
 		repaint();
 	}
 
+
 	private void paintEllipse(MouseEvent e) {
 		if (ImagePanel.ell.get(ImagePanel.ell.size() - 1) != null) {
 			ImagePanel.ell.get(ImagePanel.ell.size() - 1).setFrame(
@@ -324,6 +325,27 @@ public class ImagePanel extends JPanel implements MouseListener,
 				o.add(true);
 				o.add(false);
 				o.add(p.getColor());
+
+				l.add(o);
+			}
+			for (int i = 0; i < p.getRectangleList().size(); i++) {
+				List<Object> o = new ArrayList<Object>();
+				o.add(p.getName());
+				o.add("prostok¹t");
+				o.add(true);
+				o.add(false);
+				o.add(p.getColor());
+
+				l.add(o);
+			}
+						for (int i = 0; i < p.getPolygonList().size(); i++) {
+				List<Object> o = new ArrayList<Object>();
+				o.add(p.getName());
+				o.add("wielok¹tt");
+				o.add(true);
+				o.add(false);
+				o.add(p.getColor());
+
 				l.add(o);
 			}
 		}
