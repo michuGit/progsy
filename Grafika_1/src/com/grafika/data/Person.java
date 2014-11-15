@@ -17,11 +17,13 @@ public class Person implements Serializable{
 
 	private List<Ellipse2D> ellipse;
 	private List<Rectangle2D> rectangle;
+	private Object figure;
 	private List<Polygon> polygon;
 	private String name = null;
 	private Color color;
 
 	public Person() {
+		this.figure=new Object();
 		this.ellipse = new ArrayList<Ellipse2D>();
 		this.rectangle = new ArrayList<Rectangle2D>();
 		this.polygon = new ArrayList<Polygon>();
