@@ -15,8 +15,6 @@ public class Table extends JTable {
 	Object[][] data = {  };
 
 	public Table() {
-		// Color c = JColorChooser.showDialog(null, "Choose a Color", null);
-		// Object[][] data = { { "John Kowalski", "Owal", true, false, c } };
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 		this.setModel(model);
 		setPreferredScrollableViewportSize(getPreferredSize());
@@ -26,6 +24,8 @@ public class Table extends JTable {
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 		this.setModel(model);
 		setPreferredScrollableViewportSize(getPreferredSize());
+		repaint();
+		updateUI();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.grafika.starter.Main;
 
-public class Person {
+public class Person implements Serializable{
 	static Logger log = Logger.getLogger(Main.class.getName());
 
 	private List<Ellipse2D> ellipse;
