@@ -10,11 +10,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +29,9 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
+import com.grafika.data.Data;
+import com.grafika.data.Person;
+import com.grafika.properties.Properties;
 import com.grafika.starter.Main;
 
 public class ImagePanel extends JPanel implements MouseListener,
@@ -35,9 +44,12 @@ public class ImagePanel extends JPanel implements MouseListener,
 	private Component parent;
 
 	private BufferedImage bufferedImage;
-	private List<Ellipse2D> ellipse;
-	private List<Rectangle2D> rectangle;
-	private List<Polygon> polygon;
+	 private List<Ellipse2D> ell;
+	 private List<Rectangle2D> rect;
+	 private List<Polygon> poly;
+
+	public static Data data;
+
 	Graphics graphics;
 
 	int X;
@@ -46,10 +58,27 @@ public class ImagePanel extends JPanel implements MouseListener,
 	double ratio = 0;
 
 	public ImagePanel(Component parent) {
+
+		Path path = Paths.get(Properties.filename);
+
+		if (Files.exists(path)) {
+			loadData();
+			log.info("Dane wczytane");
+		} else {
+			data = new Data();
+			log.warn("Nie znaleziono pliku");
+		}
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			public void run() {
+				saveData();
+				log.info("Dane zapisane");
+			}
+		}));
+
 		this.parent = parent;
-		this.ellipse = new ArrayList<Ellipse2D>();
-		this.rectangle = new ArrayList<Rectangle2D>();
-		this.polygon = new ArrayList<Polygon>();
+		 this.ell = new ArrayList<Ellipse2D>();
+		 this.rect = new ArrayList<Rectangle2D>();
+		 this.poly = new ArrayList<Polygon>();
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -98,17 +127,38 @@ public class ImagePanel extends JPanel implements MouseListener,
 			g.drawImage(bufferedImage, 0, 0, this);
 			log.info("Rysunek odswiezony <szerokosc=" + this.parent.getWidth()
 					+ ", wysokosc=" + this.parent.getHeight() + ">");
-			for (Ellipse2D e : this.ellipse) {
+			for (Person p : data.get()) {
+
+				List<Ellipse2D> ellipse = p.getEllipseList();
+				List<Rectangle2D> rectangle = p.getRectangleList();
+				List<Polygon> polygon = p.getPolygonList();
+				for (Ellipse2D e : ellipse) {
+					Graphics2D g2 = (Graphics2D) g;
+					g2.setColor(Color.BLUE);
+					g2.draw(e);
+				}
+				for (Rectangle2D e : rectangle) {
+					Graphics2D g2 = (Graphics2D) g;
+					g2.setColor(Color.BLUE);
+					g2.draw(e);
+				}
+				for (Polygon e : polygon) {
+					Graphics2D g2 = (Graphics2D) g;
+					g2.setColor(Color.BLUE);
+					g2.draw(e);
+				}
+			}
+			for (Ellipse2D e : ell) {
 				Graphics2D g2 = (Graphics2D) g;
 				g2.setColor(Color.BLUE);
 				g2.draw(e);
 			}
-			for (Rectangle2D e : this.rectangle) {
+			for (Rectangle2D e : rect) {
 				Graphics2D g2 = (Graphics2D) g;
 				g2.setColor(Color.BLUE);
 				g2.draw(e);
 			}
-			for (Polygon e : this.polygon) {
+			for (Polygon e : poly) {
 				Graphics2D g2 = (Graphics2D) g;
 				g2.setColor(Color.BLUE);
 				g2.draw(e);
@@ -138,20 +188,20 @@ public class ImagePanel extends JPanel implements MouseListener,
 		int x = e.getX();
 		int y = e.getY();
 		if (GroupRadioButtonPanel.elipsa.isSelected()) {
-			this.ellipse.add(new Ellipse2D.Double(x, y, 0, 0));
+			this.ell.add(new Ellipse2D.Double(x, y, 0, 0));
 			this.X = x;
 			this.Y = y;
 		} else if (GroupRadioButtonPanel.prostokat.isSelected()) {
-			this.rectangle.add(new Rectangle2D.Double(x, y, 0, 0));
+			this.rect.add(new Rectangle2D.Double(x, y, 0, 0));
 			this.X = x;
 			this.Y = y;
 		} else if (GroupRadioButtonPanel.wielokat.isSelected()) {
-			if (this.draw == false) {
-				this.polygon.add(new Polygon());
-				this.draw = true;
+			if (draw == false) {
+				this.poly.add(new Polygon());
+				draw = true;
 				GroupRadioButtonPanel.drawButton.setVisible(true);
 			}
-			this.polygon.get(this.polygon.size() - 1).addPoint(x, y);
+			this.poly.get(this.poly.size() - 1).addPoint(x, y);
 			this.X = x;
 			this.Y = y;
 		}
@@ -182,8 +232,8 @@ public class ImagePanel extends JPanel implements MouseListener,
 	// //////////////////////////////////////////////////////////
 
 	private void paintEllipse(MouseEvent e) {
-		if (this.ellipse.get(this.ellipse.size() - 1) != null) {
-			this.ellipse.get(this.ellipse.size() - 1).setFrame(
+		if (this.ell.get(this.ell.size() - 1) != null) {
+			this.ell.get(this.ell.size() - 1).setFrame(
 					(e.getX() < this.X) ? e.getX() : this.X,
 					(e.getY() < this.Y) ? e.getY() : this.Y,
 					Math.abs(this.X - e.getX()), Math.abs(this.Y - e.getY()));
@@ -191,8 +241,8 @@ public class ImagePanel extends JPanel implements MouseListener,
 	}
 
 	private void paintRectangle(MouseEvent e) {
-		if (this.rectangle.get(this.rectangle.size() - 1) != null) {
-			this.rectangle.get(this.rectangle.size() - 1).setFrame(
+		if (this.rect.get(this.rect.size() - 1) != null) {
+			this.rect.get(this.rect.size() - 1).setFrame(
 					(e.getX() < this.X) ? e.getX() : this.X,
 					(e.getY() < this.Y) ? e.getY() : this.Y,
 					Math.abs(this.X - e.getX()), Math.abs(this.Y - e.getY()));
@@ -200,11 +250,34 @@ public class ImagePanel extends JPanel implements MouseListener,
 	}
 
 	private void paintMultiRectangle(MouseEvent e) {
-		if (this.polygon.get(this.polygon.size() - 1) != null) {
-			// this.ellipse.get(this.ellipse.size() - 1).setFrame(
-			// (e.getX() < this.X) ? e.getX() : this.X,
-			// (e.getY() < this.Y) ? e.getY() : this.Y,
-			// Math.abs(this.X - e.getX()), Math.abs(this.Y - e.getY()));
+		if (this.poly.get(this.poly.size() - 1) != null) {
+		}
+	}
+
+	public void saveData() {
+		FileOutputStream fos = null;
+		ObjectOutputStream out = null;
+		try {
+			fos = new FileOutputStream(Properties.filename);
+			out = new ObjectOutputStream(fos);
+			out.writeObject(data);
+
+			out.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void loadData() {
+		FileInputStream fis = null;
+		ObjectInputStream in = null;
+		try {
+			fis = new FileInputStream(Properties.filename);
+			in = new ObjectInputStream(fis);
+			data = (Data) in.readObject();
+			in.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 
