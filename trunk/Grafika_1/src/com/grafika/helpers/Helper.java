@@ -14,4 +14,14 @@ public class Helper {
 			return null;
 		}
 	}
+	
+	public static String promptForSaveFile(Component parent) {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showSaveDialog(parent);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			return fc.getSelectedFile().getAbsolutePath();
+		} else {
+			return null;
+		}
+	}
 }

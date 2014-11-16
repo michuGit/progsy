@@ -36,7 +36,7 @@ import com.grafika.properties.Properties;
 import com.grafika.starter.Main;
 
 public class ImagePanel extends JPanel implements MouseListener,
-		MouseMotionListener {
+		MouseMotionListener, Runnable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,20 +62,8 @@ public class ImagePanel extends JPanel implements MouseListener,
 
 		Path path = Paths.get(Properties.filename);
 
-		if (Files.exists(path)) {
-			loadData();
-			log.info("Dane wczytane");
-		} else {
-			data = new Data();
-			log.warn("Nie znaleziono pliku");
-			ToolsPanel.table = new Table();
-		}
-		// Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-		// public void run() {
-		// saveData();
-		// log.info("Dane zapisane");
-		// }
-		// }));
+		data = new Data();
+		ToolsPanel.table = new Table();
 
 		this.parent = parent;
 		ImagePanel.ell = new ArrayList<Ellipse2D>();
@@ -84,6 +72,7 @@ public class ImagePanel extends JPanel implements MouseListener,
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
+
 	}
 
 	public static void clean() {
@@ -95,22 +84,26 @@ public class ImagePanel extends JPanel implements MouseListener,
 	public static Boolean save() {
 		Person person = new Person();
 		person.setName(Properties.userName);
-		person.setColor(JColorChooser.showDialog(null, "Choose a Color", null));
+
 		Boolean b = false;
 		for (Ellipse2D e : ell) {
-			person.add(e);
+			person.addFigure(e);
 			b = true;
 			log.info("znaleziono elipse");
 		}
 		for (Rectangle2D r : rect) {
-			person.add(r);
+			person.addFigure(r);
 			b = true;
 			log.info("znaleziono prostokat");
 		}
 		for (Polygon p : poly) {
-			person.add(p);
+			person.addFigure(p);
 			b = true;
 			log.info("znaleziono wielokat");
+		}
+		if (b == true) {
+			person.setColor(JColorChooser.showDialog(null, "Choose a Color",
+					null));
 		}
 		data.add(person);
 		return b;
@@ -160,24 +153,24 @@ public class ImagePanel extends JPanel implements MouseListener,
 			log.info("Rysunek odswiezony <szerokosc=" + this.parent.getWidth()
 					+ ", wysokosc=" + this.parent.getHeight() + ">");
 			for (Person p : data.get()) {
+				if (p.visible) {
+					if (p.getFigure() instanceof Ellipse2D) {
+						Graphics2D g2 = (Graphics2D) g;
+						g2.setColor(p.getColor());
+						g2.draw((Ellipse2D) p.getFigure());
+						// g2.draw((Ellipse2D) p.getFigure());
+					}
+					if (p.getFigure() instanceof Rectangle2D) {
+						Graphics2D g2 = (Graphics2D) g;
+						g2.setColor(p.getColor());
+						g2.draw((Rectangle2D) p.getFigure());
+					}
+					if (p.getFigure() instanceof Polygon) {
+						Graphics2D g2 = (Graphics2D) g;
+						g2.setColor(p.getColor());
+						g2.draw((Polygon) p.getFigure());
+					}
 
-				List<Ellipse2D> ellipse = p.getEllipseList();
-				List<Rectangle2D> rectangle = p.getRectangleList();
-				List<Polygon> polygon = p.getPolygonList();
-				for (Ellipse2D e : ellipse) {
-					Graphics2D g2 = (Graphics2D) g;
-					g2.setColor(Color.BLUE);
-					g2.draw(e);
-				}
-				for (Rectangle2D e : rectangle) {
-					Graphics2D g2 = (Graphics2D) g;
-					g2.setColor(Color.BLUE);
-					g2.draw(e);
-				}
-				for (Polygon e : polygon) {
-					Graphics2D g2 = (Graphics2D) g;
-					g2.setColor(Color.BLUE);
-					g2.draw(e);
 				}
 			}
 			for (Ellipse2D e : ell) {
@@ -258,7 +251,6 @@ public class ImagePanel extends JPanel implements MouseListener,
 		repaint();
 	}
 
-
 	private void paintEllipse(MouseEvent e) {
 		if (ImagePanel.ell.get(ImagePanel.ell.size() - 1) != null) {
 			ImagePanel.ell.get(ImagePanel.ell.size() - 1).setFrame(
@@ -297,6 +289,7 @@ public class ImagePanel extends JPanel implements MouseListener,
 	}
 
 	public static void loadData() {
+		Properties.first = true;
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
@@ -309,6 +302,7 @@ public class ImagePanel extends JPanel implements MouseListener,
 			ToolsPanel.table.addData(convertData(data));
 			ToolsPanel.table.repaint();
 			in.close();
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -318,36 +312,19 @@ public class ImagePanel extends JPanel implements MouseListener,
 		List<List<Object>> l = new ArrayList<List<Object>>();
 
 		for (Person p : data.get()) {
-			for (int i = 0; i < p.getEllipseList().size(); i++) {
-				List<Object> o = new ArrayList<Object>();
-				o.add(p.getName());
+			List<Object> o = new ArrayList<Object>();
+			o.add(p.getName());
+			if (p.getFigure() instanceof Ellipse2D) {
 				o.add("elipsa");
-				o.add(true);
-				o.add(false);
-				o.add(p.getColor());
-
-				l.add(o);
 			}
-			for (int i = 0; i < p.getRectangleList().size(); i++) {
-				List<Object> o = new ArrayList<Object>();
-				o.add(p.getName());
+			if (p.getFigure() instanceof Rectangle2D) {
 				o.add("prostok¹t");
-				o.add(true);
-				o.add(false);
-				o.add(p.getColor());
-
-				l.add(o);
 			}
-						for (int i = 0; i < p.getPolygonList().size(); i++) {
-				List<Object> o = new ArrayList<Object>();
-				o.add(p.getName());
-				o.add("wielok¹tt");
-				o.add(true);
-				o.add(false);
-				o.add(p.getColor());
-
-				l.add(o);
+			if (p.getFigure() instanceof Polygon) {
+				o.add("wielok¹t");
 			}
+			o.add(p.visible);
+			l.add(o);
 		}
 		return toArray(l);
 	}
@@ -360,6 +337,19 @@ public class ImagePanel extends JPanel implements MouseListener,
 			}
 		}
 		return r;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ex) {
+			}
+			log.info("Repaint in thread...");
+			repaint();
+		}
+
 	}
 
 }

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -45,6 +47,8 @@ public class Frame extends JFrame {
 		add(this.toolsPanel, BorderLayout.EAST);
 
 		this.imagePanel.updateUI();
+		Thread th = new Thread(imagePanel);
+		th.start();
 
 	}
 
@@ -53,4 +57,6 @@ public class Frame extends JFrame {
 		this.imagePanel.setBorder(BorderFactory.createLineBorder(Color.red));
 		this.imagePanel.updateUI();
 	}
+	
+
 }

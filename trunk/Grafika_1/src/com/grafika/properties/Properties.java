@@ -6,4 +6,5 @@ public class Properties {
 	public static final Color BackgroundColor = Color.BLACK;
 	public static String filename = "data.dat";
 	public static String userName = "kowalski";
+	public static boolean first = true;
 }

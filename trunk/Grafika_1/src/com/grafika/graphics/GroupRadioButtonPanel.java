@@ -12,6 +12,8 @@ import javax.swing.JRadioButton;
 
 import org.apache.log4j.Logger;
 
+import com.grafika.helpers.Helper;
+import com.grafika.properties.Properties;
 import com.grafika.starter.Main;
 
 public class GroupRadioButtonPanel extends JPanel implements ActionListener {
@@ -22,6 +24,7 @@ public class GroupRadioButtonPanel extends JPanel implements ActionListener {
 	public static JRadioButton prostokat;
 	public static JRadioButton wielokat;
 	public static JButton addButton;
+	public static JButton addAsButton;
 	public static JButton cancelButton;
 	public static Color color;
 
@@ -32,9 +35,11 @@ public class GroupRadioButtonPanel extends JPanel implements ActionListener {
 		elipsa = new JRadioButton("Elipsa");
 		prostokat = new JRadioButton("Prostokąt");
 		wielokat = new JRadioButton("Wielokąt");
-		addButton = new Button("Dodaj", false);
+		addButton = new Button("Zapisz", false);
+		addAsButton = new Button("Zapisz jako", false);
 		// addButton.setVisible(false);
 		addButton.addActionListener(this);
+		addAsButton.addActionListener(this);
 		cancelButton = new Button("Anuluj", false);
 		// cancelButton.setVisible(false);
 		cancelButton.addActionListener(this);
@@ -48,6 +53,7 @@ public class GroupRadioButtonPanel extends JPanel implements ActionListener {
 		add(prostokat);
 		add(wielokat);
 		add(addButton);
+		add(addAsButton);
 		add(cancelButton);
 
 		this.setVisible(true);
@@ -56,16 +62,22 @@ public class GroupRadioButtonPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addButton) {
-			// addButton.setVisible(false);
 			if (ImagePanel.save()) {
+				if (Properties.first == false) {
+					Properties.filename = Helper.promptForSaveFile(this);
+				}
 				ImagePanel.saveData();
 				ImagePanel.loadData();
-
 				log.info("Dodano...");
 			}
+		} else if (e.getSource() == addAsButton) {
+			ImagePanel.save();
+			Properties.filename = Helper.promptForSaveFile(this);
+			ImagePanel.saveData();
+			ImagePanel.loadData();
+			log.info("Dodano...");
+
 		} else if (e.getSource() == cancelButton) {
-			// addButton.setVisible(false);
-			// ImagePanel.clean();
 		}
 		ImagePanel.clean();
 		ImagePanel.draw = false;

@@ -1,19 +1,27 @@
 package com.grafika.graphics;
 
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.grafika.properties.Properties;
+import org.apache.log4j.Logger;
 
-public class ToolsPanel extends JPanel {
+import com.grafika.properties.Properties;
+import com.grafika.starter.Main;
+
+public class ToolsPanel extends JPanel  {
+	static Logger log = Logger.getLogger(Main.class.getName());
+
 	Component parent;
 
 	GroupRadioButtonPanel radioButtonPanel;
 	JScrollPane mJScrollPane;
-	public static Table table=null;
+	public static Table table = null;
+
 	public ToolsPanel(Component parent) {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -22,8 +30,10 @@ public class ToolsPanel extends JPanel {
 
 		this.radioButtonPanel = new GroupRadioButtonPanel();
 		add(this.radioButtonPanel);
-//		table=new Table();
-		this.mJScrollPane=new JScrollPane(table);
+		// table=new Table();
+		this.mJScrollPane = new JScrollPane(table);
 		add(this.mJScrollPane);
 	}
+
+
 }
