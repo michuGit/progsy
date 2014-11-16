@@ -39,14 +39,15 @@ public class Image extends JPanel implements Runnable {
 	private void drawLines(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		BasicStroke bs = new BasicStroke(1, BasicStroke.CAP_BUTT,
-				BasicStroke.JOIN_ROUND, 1.0f, new float[] { 2f, 0f, 2f }, 2f);
+				BasicStroke.JOIN_ROUND, 2.0f, new float[] { 2f, 0f, 2f }, 2f);
 		g2d.setStroke(bs);
 
 		g2d.drawLine(0, bufferedImage.getHeight() / 2,
 				bufferedImage.getWidth(), bufferedImage.getHeight() / 2);
 		g2d.drawLine(bufferedImage.getWidth() / 2, 0,
 				bufferedImage.getWidth() / 2, bufferedImage.getHeight());
-
+		g2d.drawLine(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
+		g2d.drawLine(0, bufferedImage.getHeight(), bufferedImage.getWidth(), 0);
 	}
 
 	@Override
@@ -56,7 +57,6 @@ public class Image extends JPanel implements Runnable {
 				Thread.sleep(100);
 			} catch (InterruptedException ex) {
 			}
-			// log.info("Repaint in thread...");
 			repaint();
 		}
 	}
