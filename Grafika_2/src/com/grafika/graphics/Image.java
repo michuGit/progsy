@@ -86,10 +86,10 @@ public class Image extends JPanel implements Runnable {
 		List<Pixel> pixels = new ArrayList<Pixel>();
 		int _x = -1;
 		int _y = -1;
-		for (int i = 0; i < w; i++) {
-			for (int j = 0; j < h; j++) {
-				img[i][j] = bufferedImage.getRGB(i, j);
-				Matrix v = new Matrix(new double[][] { { i, j, 0 } });
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				// img[i][j] = bufferedImage.getRGB(i, j);
+				Matrix v = new Matrix(new double[][] { { i * w, j * h, 0 } });
 				Matrix c = v.times(m);
 				double[][] d = c.getArray();
 				Pixel p = new Pixel(c.get(0, 0), c.get(0, 1), img[i][j]);
@@ -99,21 +99,33 @@ public class Image extends JPanel implements Runnable {
 				if (p.y > _y) {
 					_y = (int) p.y;
 				}
-				pixels.add(p);
 			}
 		}
 		int[][] tmp = new int[_x + 1][_y + 1];
-		bufferedImage = new BufferedImage(_x+1, _y+1, BufferedImage.TYPE_INT_RGB);
-		for (Pixel p : pixels) {
-			tmp[(int) p.x][(int) p.y] = p.v;
-			bufferedImage.setRGB((int)p.x, (int)p.y, p.v);
-		}
-		repaint();
-		updateUI();
+		BufferedImage bufferedImage2 = new BufferedImage(_x + 1, _y + 1,
+				BufferedImage.TYPE_INT_RGB);
 
+		Matrix mat = m.inverse();
+		for (int i = 0; i < bufferedImage2.getWidth(); i++) {
+			for (int j = 0; j < bufferedImage2.getHeight(); j++) {
+				Matrix v = new Matrix(new double[][] { { i, j, 0 } });
+				Matrix c = v.times(mat);
+				double[][] d = c.getArray();
+				Pixel p = new Pixel(c.get(0, 0), c.get(0, 1), 0);
+				// pixels.add(p);
+				if ((int) p.x < w && (int) p.y < h) {
+					bufferedImage2.setRGB(i, j,
+							bufferedImage.getRGB((int) p.x, (int) p.y));
+//					log.info("pixel changed " + (int) p.x + " " + (int) p.y);
+				}
+			}
+		}
+		bufferedImage=bufferedImage2;
 		w = bufferedImage.getWidth();
 		h = bufferedImage.getHeight();
 		setPreferredSize(new Dimension(w, h));
+		repaint();
+		updateUI();
 		log.info("I po transformacji");
 	}
 }
