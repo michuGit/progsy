@@ -14,6 +14,8 @@ import javax.swing.JTextArea;
 
 import org.apache.log4j.Logger;
 
+import Jama.Matrix;
+
 import com.grafika.helpers.Helper;
 import com.grafika.matrix.Transformation;
 
@@ -53,12 +55,14 @@ public class Tools extends JPanel implements ActionListener {
 			((Frame) parent).image.changeImage(path);
 		} else if (e.getSource() == transformationButton) {
 			Helper.convertToMatrix(textArea.getText());
+			Matrix m = Transformation.transform();
+			((Frame)parent).image.transform(m);
+			m.print(0, 2);
 			PrintWriter out = null;
 			try {
 				out = new PrintWriter("file.dat");
 				out.println(textArea.getText());
 				out.close();
-				log.info("Zapisano plik " + textArea.getText());
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
