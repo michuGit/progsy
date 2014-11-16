@@ -57,7 +57,6 @@ public class GroupRadioButtonPanel extends JPanel implements ActionListener {
 		add(addAsButton);
 		add(cancelButton);
 
-		
 		setMinimumSize(new Dimension(350, 350));
 		setMaximumSize(new Dimension(350, 350));
 		this.setVisible(true);
