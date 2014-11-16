@@ -11,6 +11,8 @@ import javax.swing.JFileChooser;
 
 import org.apache.log4j.Logger;
 
+import com.grafika.matrix.Transformation;
+
 import Jama.Matrix;
 
 public class Helper {
@@ -52,14 +54,33 @@ public class Helper {
 	}
 
 	public static void convertToMatrix(String text) {
+		List<Matrix> list = new ArrayList<Matrix>();
 		String[] data = text.split("\\s");
+		List<String> temp = new ArrayList<String>();
 		for (int i = 0; i < data.length; i++) {
 			if (!data[i].isEmpty()) {
-				
+				temp.add(data[i]);
 				log.info(data[i]);
 			}
 		}
-		List<Matrix> list = new ArrayList<Matrix>();
-		double[][] mat = new double[3][3];
+		data = temp.toArray(data);
+		for (int i = 0; i < data.length / 9; i++) {
+			double[][] mat = new double[3][3];
+			for (int j = 0; j < 9; j++) {
+				if (data[i * 9 + j].contains("s")) {
+					log.info("sinus");
+					mat[j / 3][j % 3] = Math.sin(Math.toRadians(Double
+							.parseDouble(data[i * 9 + j].replace("s", ""))));
+				} else if (data[i * 9 + j].contains("c")) {
+					log.info("cosinus");
+					mat[j / 3][j % 3] = Math.cos(Math.toRadians(Double
+							.parseDouble(data[i * 9 + j].replace("c", ""))));
+				} else {
+					mat[j / 3][j % 3] = Double.parseDouble(data[i * 9 + j]);
+				}
+			}
+			list.add(new Matrix(mat));
+		}
+		Transformation.transformacje = list;
 	}
 }
