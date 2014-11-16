@@ -12,21 +12,17 @@ import org.apache.log4j.Logger;
 
 import com.grafika.starter.Main;
 
-public class Person implements Serializable{
+public class Person implements Serializable {
 	static Logger log = Logger.getLogger(Main.class.getName());
 
-	private List<Ellipse2D> ellipse;
-	private List<Rectangle2D> rectangle;
+	public boolean visible = true;
+	private boolean cutable = false;
 	private Object figure;
-	private List<Polygon> polygon;
 	private String name = null;
 	private Color color;
 
 	public Person() {
-		this.figure=new Object();
-		this.ellipse = new ArrayList<Ellipse2D>();
-		this.rectangle = new ArrayList<Rectangle2D>();
-		this.polygon = new ArrayList<Polygon>();
+		this.figure = new Object();
 	}
 
 	public void setColor(Color c) {
@@ -45,28 +41,11 @@ public class Person implements Serializable{
 		return this.name;
 	}
 
-	public void add(Object obj) {
-		if (obj instanceof Ellipse2D) {
-			ellipse.add((Ellipse2D) obj);
-		} else if (obj instanceof Rectangle2D) {
-			rectangle.add((Rectangle2D) obj);
-		} else if (obj instanceof Polygon) {
-			polygon.add((Polygon) obj);
-		} else {
-			log.error("Nie rozpoznano obiektu!");
-		}
-
+	public void addFigure(Object obj) {
+		this.figure = obj;
 	}
 
-	public List<Ellipse2D> getEllipseList() {
-		return this.ellipse;
-	}
-
-	public List<Rectangle2D> getRectangleList() {
-		return this.rectangle;
-	}
-
-	public List<Polygon> getPolygonList() {
-		return this.polygon;
+	public Object getFigure() {
+		return this.figure;
 	}
 }
