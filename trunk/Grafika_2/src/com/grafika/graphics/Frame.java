@@ -44,6 +44,9 @@ public class Frame extends JFrame {
 		// // this.imagePanel.updateUI();
 		Thread th = new Thread(image);
 		th.start();
+		
+		update(getGraphics());
+		repaint();
 
 	}
 
