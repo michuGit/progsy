@@ -1,6 +1,7 @@
 package com.grafika.graphics;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -56,6 +57,9 @@ public class GroupRadioButtonPanel extends JPanel implements ActionListener {
 		add(addAsButton);
 		add(cancelButton);
 
+		
+		setMinimumSize(new Dimension(350, 350));
+		setMaximumSize(new Dimension(350, 350));
 		this.setVisible(true);
 	}
 
