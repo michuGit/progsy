@@ -56,6 +56,7 @@ public class MyMainWindow extends JFrame {
 			}
 		});
 		setVisible(true);
+		setSize(1024, 768);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		try {
