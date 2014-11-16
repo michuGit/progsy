@@ -4,6 +4,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.Logger;
 
+import com.grafika.graphics.Frame;
+
 public class Main {
 	static Logger log = Logger.getLogger(Main.class.getName());
 
@@ -11,7 +13,9 @@ public class Main {
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {
 		log.info("Grakika_2");
-//		Frame frame = new Frame();
+		Frame frame = new Frame();
+
+		
 	}
 
 }
