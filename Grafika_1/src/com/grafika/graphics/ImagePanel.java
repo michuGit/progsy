@@ -1,5 +1,6 @@
 package com.grafika.graphics;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -18,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -156,17 +156,20 @@ public class ImagePanel extends JPanel implements MouseListener,
 				if (p.visible) {
 					if (p.getFigure() instanceof Ellipse2D) {
 						Graphics2D g2 = (Graphics2D) g;
+						g2.setStroke(new BasicStroke(10));
 						g2.setColor(p.getColor());
 						g2.draw((Ellipse2D) p.getFigure());
 						// g2.draw((Ellipse2D) p.getFigure());
 					}
 					if (p.getFigure() instanceof Rectangle2D) {
 						Graphics2D g2 = (Graphics2D) g;
+						g2.setStroke(new BasicStroke(10));
 						g2.setColor(p.getColor());
 						g2.draw((Rectangle2D) p.getFigure());
 					}
 					if (p.getFigure() instanceof Polygon) {
 						Graphics2D g2 = (Graphics2D) g;
+						g2.setStroke(new BasicStroke(10));
 						g2.setColor(p.getColor());
 						g2.draw((Polygon) p.getFigure());
 					}
@@ -175,16 +178,19 @@ public class ImagePanel extends JPanel implements MouseListener,
 			}
 			for (Ellipse2D e : ell) {
 				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(10));
 				g2.setColor(Color.RED);
 				g2.draw(e);
 			}
 			for (Rectangle2D e : rect) {
 				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(10));
 				g2.setColor(Color.RED);
 				g2.draw(e);
 			}
 			for (Polygon e : poly) {
 				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(10));
 				g2.setColor(Color.RED);
 				g2.draw(e);
 			}
