@@ -25,6 +25,12 @@ public class Transformation {
 		for (Matrix m : transformacje) {
 			transform = transform.times(m);
 		}
+		transform=transform.times(endMatrix());
+		
+		return transform;
+	}
+	
+	public static Matrix endMatrix(){
 		double[][] end = new double[3][3];
 		end[0][0] = 1;
 		end[0][1] = 0;
@@ -35,9 +41,7 @@ public class Transformation {
 		end[2][0] = Image.w / 2;
 		end[2][1] = Image.h / 2;
 		end[2][2] = 1;
-		transform=transform.times(new Matrix(end));
-		
-		return transform;
+		return new Matrix(end);
 	}
 
 }
