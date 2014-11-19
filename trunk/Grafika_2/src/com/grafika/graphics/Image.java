@@ -152,11 +152,12 @@ public class Image extends JPanel implements Runnable {
 	}
 	public void transformVector(Matrix m) {
 		for(Point point:p){
-					Matrix v = new Matrix(new double[][] { {point.getX(), point.getY(), 0 } });
-					Matrix c = v.times(m.inverse());
+					Matrix v = new Matrix(new double[][] { {point.getX(), 0, 0 },{point.getY(),0,0},{1,0,0} });
+					Matrix c = m.times(v);
 					double[][] d = c.getArray();
+					log.info(point.x+","+point.y+" --> "+(int) c.get(0, 0)+","+(int) c.get(1, 0));
 					point.x=(int) c.get(0, 0);
-					point.y=(int) c.get(0, 1);
+					point.y=(int) c.get(1,0);
 		}
 	}
 	public void transform(Matrix m) {
@@ -187,6 +188,7 @@ public class Image extends JPanel implements Runnable {
 				}
 			}
 		}
+		
 		int[][] tmp = new int[Math.abs(_x) + _X + 1][Math.abs(_y) + _Y + 1];
 		BufferedImage bufferedImage2 = new BufferedImage(Math.abs(_x) + _X + 1,
 				Math.abs(_y) + _Y + 1, BufferedImage.TYPE_INT_RGB);
