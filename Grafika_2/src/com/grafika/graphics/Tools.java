@@ -31,8 +31,8 @@ public class Tools extends JPanel implements ActionListener {
 	JButton closeButton = new Button("Zamknij");
 	JTextArea textArea = new JTextArea();
 	Component parent;
-boolean vectorImage=false;
-	
+	public static boolean vectorImage = false;
+
 	public Tools(Component parent) {
 		super();
 		this.parent = parent;
@@ -57,26 +57,26 @@ boolean vectorImage=false;
 			String path = Helper.promptForFile(this);
 			log.info(path);
 			if (path.split(Pattern.quote("."))[1].equals("vec")) {
-				vectorImage=true;
+				vectorImage = true;
 				try {
 					((Frame) parent).image.changeImageVector(path);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			} else {
-				vectorImage=false;
+				vectorImage = false;
 				((Frame) parent).image.changeImage(path);
 			}
 		} else if (e.getSource() == transformationButton) {
 
 			Helper.convertToMatrix(textArea.getText());
 			Matrix m = Transformation.transform();
-if(vectorImage==true){
-	((Frame) parent).image.transformVector(m);
-	
-}else{
-	((Frame) parent).image.transform(m);
-}
+			if (vectorImage == true) {
+				((Frame) parent).image.transformVector(m);
+
+			} else {
+				((Frame) parent).image.transform(m);
+			}
 			m.print(0, 2);
 
 			PrintWriter out = null;
