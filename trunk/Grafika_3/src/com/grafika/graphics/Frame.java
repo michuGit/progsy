@@ -15,17 +15,16 @@ public class Frame extends JFrame {
 	private final int width = 1024;
 	private final int height = 768;
 
-	public Frame() throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, UnsupportedLookAndFeelException {
+	public Frame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		super("Grafika_2");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds((int) (0.5 * (screenSize.width - width)),
-				(int) (0.5 * (screenSize.height - height)), width, height);
+		setBounds((int) (0.5 * (screenSize.width - width)), (int) (0.5 * (screenSize.height - height)), width, height);
 		setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setLayout(new BorderLayout());
-		setVisible(true);		
+		setVisible(true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("UniIcon.png"));
 		update(getGraphics());
 		repaint();
 
