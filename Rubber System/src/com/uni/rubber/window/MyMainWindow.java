@@ -2,24 +2,30 @@ package com.uni.rubber.window;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JToolBar;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class MyMainWindow extends JFrame {
+import org.apache.log4j.Logger;
 
+import com.umi.rubber.properties.DialogHelper;
+
+public class MyMainWindow extends JFrame {
+	static Logger log = Logger.getLogger(MyMainWindow.class.getName());
 	private MyWindowPanel contentPane;
+
 	public MyMainWindow() {
 		super(WindowLabels.Name);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		contentPane = new MyWindowPanel();
 		setContentPane(contentPane);
 		JMenuBar menuBar = new JMenuBar();
@@ -55,6 +61,19 @@ public class MyMainWindow extends JFrame {
 				contentPane.add(internalFrame);
 			}
 		});
+
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				if (DialogHelper.confirmDialog() == 0) {
+					log.info("Zamykanie aplikacji.");
+					System.exit(0);
+				} else {
+					log.info("Anulowanie zamykania aplikacji.");
+				}
+			}
+		});
 		setVisible(true);
 		setSize(1024, 768);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -66,5 +85,6 @@ public class MyMainWindow extends JFrame {
 			e.printStackTrace();
 		}
 		SwingUtilities.updateComponentTreeUI(this);
+
 	}
 }
