@@ -56,12 +56,10 @@ public class MyMainWindow extends JFrame {
 		nowaMieszanka.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Dodawanie nowej mieszanki...");
-				MyInternalFrame internalFrame = new MyInternalFrame(
-						"Dodawanie mieszanki");
+				MyInternalFrame internalFrame = new MyInternalFrame("Dodawanie mieszanki");
 				contentPane.add(internalFrame);
 			}
 		});
-
 
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -80,8 +78,7 @@ public class MyMainWindow extends JFrame {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
 		SwingUtilities.updateComponentTreeUI(this);
