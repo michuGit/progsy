@@ -1,10 +1,23 @@
 package com.latex;
 
-import groovy.lang.GroovyClassLoader;
-
 public class Latex {
+
+	private String doc;
+
 	public Latex() {
-		GroovyClassLoader c;
-	
+		doc = LatexParams.EMPTY;
+	}
+
+	public boolean write() {
+		return false;
+	}
+
+	public boolean generate() {
+		return false;
+	}
+
+	public boolean clear() {
+		doc = LatexParams.EMPTY;
+		return true;
 	}
 }
