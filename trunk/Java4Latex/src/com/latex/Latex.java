@@ -1,5 +1,10 @@
 package com.latex;
 
-public class Latex {
+import groovy.lang.GroovyClassLoader;
 
+public class Latex {
+	public Latex() {
+		GroovyClassLoader c;
+	
+	}
 }
