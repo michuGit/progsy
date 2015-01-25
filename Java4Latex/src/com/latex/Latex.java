@@ -20,4 +20,8 @@ public class Latex {
 		doc = LatexParams.EMPTY;
 		return true;
 	}
+	
+	private void create(){
+//		doc = LatexParams.BASIS;
+	}
 }
