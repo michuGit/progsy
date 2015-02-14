@@ -1,4 +1,4 @@
-package com.umi.rubber.properties;
+package com.uni.rubber.properties;
 
 import java.awt.Component;
 import java.awt.Frame;
