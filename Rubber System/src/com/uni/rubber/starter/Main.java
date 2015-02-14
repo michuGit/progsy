@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 import org.apache.log4j.Logger;
 
-import com.umi.rubber.properties.PropertiesLoader;
+import com.uni.rubber.properties.PropertiesLoader;
 import com.uni.rubber.window.MyMainWindow;
 
 public class Main {
@@ -17,5 +17,4 @@ public class Main {
 		log.info("Loading properties...");
 		PropertiesLoader mPropertiesLoader = new PropertiesLoader(mainWindow);
 	}
-
 }
