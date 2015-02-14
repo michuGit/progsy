@@ -17,11 +17,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.Logger;
 
-import com.umi.rubber.properties.DialogHelper;
+import com.uni.rubber.properties.DialogHelper;
 
 public class MyMainWindow extends JFrame {
 	static Logger log = Logger.getLogger(MyMainWindow.class.getName());
 	private MyWindowPanel contentPane;
+	private LoginWindow loginWindow;
 
 	public MyMainWindow() {
 		super(WindowLabels.Name);
@@ -82,6 +83,9 @@ public class MyMainWindow extends JFrame {
 			e.printStackTrace();
 		}
 		SwingUtilities.updateComponentTreeUI(this);
-
+	
+	
+	loginWindow=new LoginWindow();
+	
 	}
 }
