@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.uni.rubber.database.DatabaseConnector;
 import com.uni.rubber.reports.Report;
-import com.uni.rubber.social.User;
 
 public abstract class Product implements Report, DatabaseConnector {
 	protected String name;
@@ -14,8 +13,8 @@ public abstract class Product implements Report, DatabaseConnector {
 	protected Shift shift;
 	protected Date date;
 	protected Machine machine;
-	protected User contractor;
-	protected User assistant;
+//	protected User contractor;
+//	protected User assistant;
 	protected List<String> parametersName;
 	protected List<Object> parametersValue;
 
