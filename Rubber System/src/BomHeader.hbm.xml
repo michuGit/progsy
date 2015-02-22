@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25 April 2011 7:52:33 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.uni.rubber.tables.BomHeader" table="BOM_HEADER">
+
+		<id name="no" type="nstring">
+			<column name="[No.]" length="50" not-null="false" unique="false" />
+		</id>
+		<property name="description" type="nstring">
+			<column name="[Description]" length="50" not-null="false" unique="false" />
+		</property>
+		<property name="description2" type="nstring">
+			<column name="[Description 2]" length="50" not-null="false" unique="false" />
+		</property>
+		<property name="searchName" type="nstring">
+			<column name="[Search Name]" length="50" not-null="false" unique="false" />
+		</property>
+	</class>
+</hibernate-mapping>
