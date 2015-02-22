@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<translation>
+	<language id="Polski">
+		<loginWindow>
+			<title>Okno logowania</title>
+			<userLabel>Użytkownik:</userLabel>
+			<passwordLabel>Hasło:</passwordLabel>
+		</loginWindow>
+		<menuBar>
+			<mixes>Mieszanki</mixes>
+			<granules>Granulaty</granules>
+			<reports>Raporty</reports>
+			<magazine>Magazyn</magazine>
+			<users>Użytkowicy</users>
+			<settings>Ustawienia</settings>
+		</menuBar>
+	</language>
+	<language id="Englisch">
+		<loginWindow>
+			<title>Login window</title>
+			<userLabel>User:</userLabel>
+			<passwordLabel>Password:</passwordLabel>
+		</loginWindow>
+	</language>
+
+</translation>
