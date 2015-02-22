@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25 April 2011 7:52:33 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.uni.rubber.tables.User" table="[USER]">
+
+		<id name="id" type="int" column="id">
+         <generator class="native"/>
+      </id>
+		<property name="login" type="nstring">
+			<column name="login" />
+		</property>
+		<property name="password" type="nstring">
+			<column name="password"  />
+		</property>
+		<property name="name" type="nstring">
+			<column name="name" />
+		</property>
+		<property name="lastname" type="nstring">
+			<column name="lastname"  />
+		</property>
+	</class>
+</hibernate-mapping>
