@@ -4,20 +4,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.Logger;
 
+import com.uni.rubber.helper.BooleanHelper;
+import com.uni.rubber.helper.ObjectHelper;
+import com.uni.rubber.helper.XMLLanguageLoaderHelper;
 import com.uni.rubber.properties.DialogHelper;
+import com.uni.rubber.properties.Properties;
 
 public class MyMainWindow extends JFrame {
 	static Logger log = Logger.getLogger(MyMainWindow.class.getName());
@@ -34,13 +38,13 @@ public class MyMainWindow extends JFrame {
 		// Add the menubar to the frame
 		setJMenuBar(menuBar);
 
-		// Define and add two drop down menu to the menubar
-		JMenu mieszanki = new JMenu("Mieszanki");
-		JMenu granulaty = new JMenu("Granulaty");
-		JMenu raporty = new JMenu("Raporty");
-		JMenu magazyn = new JMenu("Magazyn");
-		JMenu uzytkowicy = new JMenu("U¿ytkowicy");
-		JMenu ustawienia = new JMenu("Ustawienia");
+		Map<String, String> labels = XMLLanguageLoaderHelper.XMLLanguageLoaderHelperReader(Properties.MENU_LABELS);
+		JMenu mieszanki = new JMenu(labels.get("mixes"));
+		JMenu granulaty = new JMenu(labels.get("granules"));
+		JMenu raporty = new JMenu(labels.get("reports"));
+		JMenu magazyn = new JMenu(labels.get("magazine"));
+		JMenu uzytkowicy = new JMenu(labels.get("users"));
+		JMenu ustawienia = new JMenu(labels.get("settings"));
 
 		menuBar.add(mieszanki);
 		menuBar.add(granulaty);
@@ -49,7 +53,7 @@ public class MyMainWindow extends JFrame {
 		menuBar.add(uzytkowicy);
 		menuBar.add(ustawienia);
 
-		JMenuItem nowaMieszanka = new JMenuItem("Dodaj now¹ mieszankê");
+		JMenuItem nowaMieszanka = new JMenuItem("Dodaj nowÄ… mieszankÄ™");
 		JMenuItem raportMieszanki = new JMenuItem("Raport mieszanki");
 		ButtonGroup bg = new ButtonGroup();
 		mieszanki.add(nowaMieszanka);
@@ -73,19 +77,20 @@ public class MyMainWindow extends JFrame {
 				}
 			}
 		});
+
 		setVisible(true);
 		setSize(1024, 768);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
 		SwingUtilities.updateComponentTreeUI(this);
-	
-	
-	loginWindow=new LoginWindow();
-	
+		while (ObjectHelper.isNull(loginWindow) || BooleanHelper.isFalse(loginWindow.getPrivilage())) {
+			loginWindow = new LoginWindow();
+		}
 	}
 }
