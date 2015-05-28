@@ -1,5 +1,8 @@
 package com.latex;
 
+/**
+* Klasa helperowa
+*/
 public class LatexHelper {
 
 	public static boolean isEmpty(String str) {

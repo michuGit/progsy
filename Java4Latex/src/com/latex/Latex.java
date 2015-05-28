@@ -1,5 +1,11 @@
 package com.latex;
 
+/**
+*
+*
+*
+*
+*/
 public class Latex {
 
 	private String doc;
