@@ -1,6 +1,7 @@
 package com.latex;
 
 /**
+*	Glowna klasa biblioteki	
 *
 *
 *
