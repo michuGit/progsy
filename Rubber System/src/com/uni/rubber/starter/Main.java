@@ -15,7 +15,7 @@ import com.uni.rubber.database.HibernateUtils;
 import com.uni.rubber.helper.XMLLanguageLoaderHelper;
 import com.uni.rubber.properties.PropertiesLoader;
 import com.uni.rubber.window.MyMainWindow;
-
+//test
 public class Main {
 	static Logger log = Logger.getLogger(Main.class.getName());
 
@@ -31,3 +31,4 @@ public class Main {
 		PropertiesLoader mPropertiesLoader = new PropertiesLoader(mainWindow);
 	}
 }
+ 
